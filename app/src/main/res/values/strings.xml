@@ -13,4 +13,6 @@
     <string name="title_activity_note">Edit Note</string>
     <string name="send_as_email">Send as email</string>
     <string name="action_cancel">Cancel</string>
+    <string name="text_title">TextTitle</string>
+    <string name="text_course">TextCourse</string>
 </resources>
