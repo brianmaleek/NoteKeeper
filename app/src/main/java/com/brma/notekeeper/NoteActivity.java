@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,7 @@ import java.util.List;
 public class NoteActivity extends AppCompatActivity {
     public static final String NOTE_POSITION = "com.brma.notekeeper.NOTE_POSITION";
     public static final int POSITION_NOT_SET = -1;
+    private static final String TAG = NoteActivity.class.getSimpleName();
     private NoteInfo mNote;
     private boolean mIsNewNote;
     private EditText mTextNoteTitle;
@@ -116,14 +118,16 @@ public class NoteActivity extends AppCompatActivity {
 
     private void readDisplayStateValues() {
         Intent intent = getIntent();
-        int position = intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET);
-        mIsNewNote = position == POSITION_NOT_SET;
+        mNotePosition = intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET);
+        mIsNewNote = mNotePosition == POSITION_NOT_SET;
         if (mIsNewNote) {
             createNewNote ();
 
-        } else {
-            mNote = DataManager.getInstance().getNotes().get(position);
         }
+        
+        Log.i(TAG, "mNotePosition: " + mNotePosition);
+        mNote = DataManager.getInstance().getNotes().get(mNotePosition);
+
     }
 
     @Override
@@ -156,6 +160,14 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     private void moveNext() {
+        saveNote();
+
+        ++mNotePosition;
+
+        mNote = DataManager.getInstance().getNotes().get(mNotePosition);
+
+        saveOriginalNoteValues();
+        displayNote(mSpinnerCourses, mTextNoteTitle, mTextNoteText);
 
     }
 
