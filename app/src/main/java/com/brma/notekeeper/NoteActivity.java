@@ -160,10 +160,10 @@ public class NoteActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item =menu.findItem(R.id.action_next);
-        int lastNoteIndex = DataManager.getInstance().getNotes().size() -1;
-        item.setEnabled(mNotePosition < lastNoteIndex);
+    public boolean onPrepareOptionsMenu(Menu menu) {     //Adding Menu item actions to our app,
+        MenuItem item =menu.findItem(R.id.action_next); //changing Menu items at runtime and
+        int lastNoteIndex = DataManager.getInstance().getNotes().size() -1; //disabling the next
+        item.setEnabled(mNotePosition < lastNoteIndex); //note menu item.
         return super.onPrepareOptionsMenu(menu);
     }
 
